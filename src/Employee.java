@@ -1,20 +1,14 @@
 public class Employee {
     private String FIO_;    // фамилия, имя, отчество
-    private int id_;                // идентификатор
+    private int id_ = 0;                // идентификатор
     private float salary_;          // зарплата
     private String department_;     // отдел
 
-    Employee(){
+    Employee(int id){
         FIO_ = "";
-        id_ = 0;
+        id_ = id;
         salary_ = 0.0f;
         department_ = "";
-    }
-    Employee(String FIO, int id, float salary, String department){
-        FIO_ = FIO;
-        id_ = id;
-        salary_ = salary;
-        department_ = department;
     }
 
     public void PrintEmployee(){
@@ -38,5 +32,21 @@ public class Employee {
 
     public String GetDepartment(){
         return department_;
+    }
+
+    public void SetFIO(final String FIO){
+        FIO_ = FIO;
+    }
+
+    public void SetSalary(float salary){
+        salary_ = salary;
+    }
+
+    public void SetDepartment(final String department){
+        department_ = department;
+    }
+
+    public void PrintFIO(){
+        System.out.println(FIO_);
     }
 }
