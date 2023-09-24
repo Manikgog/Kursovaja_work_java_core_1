@@ -1,3 +1,4 @@
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -17,25 +18,37 @@ public class MainMenu {
                     System.out.println("*******************************************************");
                     break;
                 case 2:
-                    System.out.println("Сумма затрат на зарплаты равна " + Book.SalaryCost());
+                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                    System.out.println("Сумма затрат на зарплаты равна " + toMoneyFormat(Book.SalaryCost()));
+                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     break;
                 case 3:
+                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     System.out.println("Работники с минимальной зарплатой");
                     PrintEmployeesWithSalary(Book, Book.MinSalaryFind());
+                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     break;
                 case 4:
+                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     System.out.println("Работники с максимальной зарплатой");
                     PrintEmployeesWithSalary(Book, Book.MaxSalaryFind());
+                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     break;
                 case 5:
-                    System.out.println("Средняя зарплата равна " + Book.AverageSalary());
+                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                    System.out.println("Средняя зарплата равна " + toMoneyFormat(Book.AverageSalary()));
+                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     break;
                 case 6:
+                    System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                     Employee emp = AddEmpl(Book);
                     Book.AddEmployee(emp.GetFIO(), emp.GetSalary(), emp.GetDepartment(), emp.GetID());
+                    System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                     break;
                 case 7:
+                    System.out.println("-------------------------------------------------------");
                     DeleteEmployee(Book);
+                    System.out.println("-------------------------------------------------------");
                     break;
                 case 8:
                     ChangeEmployee(Book);
@@ -49,6 +62,11 @@ public class MainMenu {
             if(choice == 10)
                 break;
         } while(true);
+    }
+
+    public static String toMoneyFormat(float cost){
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        return formatter.format(cost);
     }
 
     private boolean ChangeEmployee(EmployeeBook Book){

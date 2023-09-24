@@ -14,7 +14,7 @@ public class Employee {
     public void PrintEmployee(){
         System.out.println("ID - " + id_);
         System.out.println("FIO - " + FIO_);
-        System.out.println("Salary - " + salary_);
+        System.out.println("Salary - " + MainMenu.toMoneyFormat(salary_));
         System.out.println("Department - " + department_+ "\n");
     }
 

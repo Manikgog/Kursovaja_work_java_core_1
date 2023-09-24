@@ -1,9 +1,7 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
 
 public class EmployeeBook {
-    private Employee book_[] = new Employee[10];
+    private Employee[] book_ = new Employee[10];
     private static int count_ = 0;
     EmployeeBook()
     {
@@ -19,7 +17,7 @@ public class EmployeeBook {
                 continue;
             System.out.println("ID - " + book_[i].GetID());
             System.out.println("FIO - " + book_[i].GetFIO());
-            System.out.println("Salary - " + book_[i].GetSalary());
+            System.out.println("Salary - " + MainMenu.toMoneyFormat(book_[i].GetSalary()));
             System.out.println("Department - " + book_[i].GetDepartment());
         }
         System.out.println();
