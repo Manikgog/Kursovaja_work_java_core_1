@@ -3,60 +3,55 @@ import java.util.Scanner;
 
 public class MainMenu {
 
-    public void MainMenu(EmployeeBook Book) {
+    public void Menu(EmployeeBook Book) {
         do {
             Menu menu = new Menu();
-            int choice = 0;
+            int choice;
             do {
                 choice = menu.MenuMain();
             } while (choice < 1 || choice > 10);
 
             switch (choice) {
-                case 1:
+                case 1 -> {
                     System.out.println("*******************************************************");
                     Book.PrintBook();
                     System.out.println("*******************************************************");
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     System.out.println("Сумма затрат на зарплаты равна " + toMoneyFormat(Book.SalaryCost()));
                     System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     System.out.println("Работники с минимальной зарплатой");
                     PrintEmployeesWithSalary(Book, Book.MinSalaryFind());
                     System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                    break;
-                case 4:
+                }
+                case 4 -> {
                     System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     System.out.println("Работники с максимальной зарплатой");
                     PrintEmployeesWithSalary(Book, Book.MaxSalaryFind());
                     System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                    break;
-                case 5:
+                }
+                case 5 -> {
                     System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     System.out.println("Средняя зарплата равна " + toMoneyFormat(Book.AverageSalary()));
                     System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                    break;
-                case 6:
+                }
+                case 6 -> {
                     System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                     Employee emp = AddEmpl(Book);
                     Book.AddEmployee(emp.GetFIO(), emp.GetSalary(), emp.GetDepartment(), emp.GetID());
                     System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    break;
-                case 7:
+                }
+                case 7 -> {
                     System.out.println("-------------------------------------------------------");
                     DeleteEmployee(Book);
                     System.out.println("-------------------------------------------------------");
-                    break;
-                case 8:
-                    ChangeEmployee(Book);
-                    break;
-                case 9:
-                    Book.PrintFIOByDepartment();
-                    break;
-
+                }
+                case 8 -> ChangeEmployee(Book);
+                case 9 -> Book.PrintFIOByDepartment();
             }
 
             if(choice == 10)
@@ -69,13 +64,13 @@ public class MainMenu {
         return formatter.format(cost);
     }
 
-    private boolean ChangeEmployee(EmployeeBook Book){
+    private void ChangeEmployee(EmployeeBook Book){
         System.out.print("Введите ID работника:");
         Scanner in = new Scanner(System.in);
         int id = in.nextInt();
         if(!Book.CheckID(id)) {
             System.out.println("Работника с ID " + id + " нет.");
-            return false;
+            return;
         }
         System.out.println("1. Изменить зарплату.");
         System.out.println("2. Изменить отдел.");
@@ -84,15 +79,12 @@ public class MainMenu {
         if(n == 1){
             System.out.print("Введите новую зарплату работника: ");
             float salary = in.nextFloat();
-            if(Book.ChangeEmployeeSalaryByID(id, salary))
-                return true;
+            Book.ChangeEmployeeSalaryByID(id, salary);
         }else if(n == 2){
             System.out.print("Введите новый отдел работника: ");
             String dep = in.nextLine();
-            if(Book.ChangeEmployeeDepartmentByID(id, dep))
-                return true;
+            Book.ChangeEmployeeDepartmentByID(id, dep);
         }
-        return false;
     }
 
     private void PrintEmployeesWithSalary(EmployeeBook Book, float salary){
@@ -103,7 +95,7 @@ public class MainMenu {
         }
     }
 
-    private boolean DeleteEmployee(EmployeeBook Book){
+    private void DeleteEmployee(EmployeeBook Book){
         System.out.println("Выберите вариант удаления:");
         System.out.println("1. Удаление по ID.");
         System.out.println("2. Удаление по ФИО.");
@@ -115,18 +107,23 @@ public class MainMenu {
             input = in.nextInt();
             if(Book.DeleteEmployeeByID(input)){
                 System.out.println("Данные сотрудника с ID "+ input + " удалены.");
-                return true;
             }
         }else if(input == 2){
             System.out.print("Введите ФИО: ");
             String name;
-            name = in.nextLine();
-            if(Book.DeleteEmployeeByFIO(name)){
-                System.out.println("Данные сотрудника "+ name + " удалены.");
-                return true;
+            Scanner in_ = new Scanner(System.in);
+            name = in_.nextLine();
+            if(name.equals("")){
+                System.out.println("Вы ввели пустую строку");
+            }
+            else {
+                if (Book.DeleteEmployeeByFIO(name)) {
+                    System.out.println("Данные сотрудника " + name + " удалены.");
+                }else{
+                    System.out.println("Сотрудник с таким именем не найден.");
+                }
             }
         }
-        return false;
     }
 
     private Employee AddEmpl(EmployeeBook Book) {
@@ -147,8 +144,8 @@ public class MainMenu {
             return e;
         } else {
             System.out.println("Свободных вакансий нет.");
-            Employee noEmployee = new Employee(-1);
-            return noEmployee;
+
+            return new Employee(-1);
         }
     }
 

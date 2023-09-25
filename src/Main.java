@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +14,7 @@ public class Main {
         Book.AddEmployee("Ralf Loren", 13.3f, "fashion department", Book.CheckVacancy());
 
         MainMenu mainMenu = new MainMenu();
-        mainMenu.MainMenu(Book);
+        mainMenu.Menu(Book);
         /*
         Book.PrintBook();
 

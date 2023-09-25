@@ -1,6 +1,6 @@
 public class Employee {
     private String FIO_;    // фамилия, имя, отчество
-    private int id_ = 0;                // идентификатор
+    private int id_;                // идентификатор
     private float salary_;          // зарплата
     private String department_;     // отдел
 

@@ -17,9 +17,8 @@ public class Menu {
 
         System.out.print("Введите номер пункта -> ");
         Scanner in = new Scanner(System.in);
-        int input = in.nextInt();
 
-        return input;
+        return in.nextInt();
     }
 
 
