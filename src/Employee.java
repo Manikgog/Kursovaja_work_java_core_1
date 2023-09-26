@@ -1,52 +1,52 @@
 public class Employee {
-    private String FIO_;    // фамилия, имя, отчество
-    private int id_;                // идентификатор
-    private float salary_;          // зарплата
-    private String department_;     // отдел
+    private String FIO;    // фамилия, имя, отчество
+    private int id;                // идентификатор
+    private float salary;          // зарплата
+    private String department;     // отдел
 
     Employee(int id){
-        FIO_ = "";
-        id_ = id;
-        salary_ = 0.0f;
-        department_ = "";
+        this.FIO = "";
+        this.id = id;
+        this.salary = 0.0f;
+        this.department = "";
     }
 
-    public void PrintEmployee(){
-        System.out.println("ID - " + id_);
-        System.out.println("FIO - " + FIO_);
-        System.out.println("Salary - " + MainMenu.toMoneyFormat(salary_));
-        System.out.println("Department - " + department_+ "\n");
+    public void printEmployee(){
+        System.out.println("ID - " + this.id);
+        System.out.println("FIO - " + this.FIO);
+        System.out.println("Salary - " + MainMenu.toMoneyFormat(this.salary));
+        System.out.println("Department - " + this.department + "\n");
     }
 
-    public String GetFIO(){
-        return FIO_;
+    public String getFIO(){
+        return this.FIO;
     }
 
-    public int GetID(){
-        return id_;
+    public int getID(){
+        return this.id;
     }
 
-    public float GetSalary(){
-        return salary_;
+    public float getSalary(){
+        return this.salary;
     }
 
-    public String GetDepartment(){
-        return department_;
+    public String getDepartment(){
+        return this.department;
     }
 
-    public void SetFIO(final String FIO){
-        FIO_ = FIO;
+    public void setFIO(final String FIO){
+        this.FIO = FIO;
     }
 
-    public void SetSalary(float salary){
-        salary_ = salary;
+    public void setSalary(float salary){
+        this.salary = salary;
     }
 
-    public void SetDepartment(final String department){
-        department_ = department;
+    public void setDepartment(final String department){
+        this.department = department;
     }
 
-    public void PrintFIO(){
-        System.out.println(FIO_);
+    public void printFIO(){
+        System.out.println(this.FIO);
     }
 }

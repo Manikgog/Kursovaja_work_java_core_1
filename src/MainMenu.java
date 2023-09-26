@@ -1,61 +1,93 @@
 import java.text.NumberFormat;
 import java.util.Scanner;
 
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
+
 public class MainMenu {
 
-    public void Menu(EmployeeBook Book) {
+    public void menu(EmployeeBook Book) {
         do {
             Menu menu = new Menu();
-            int choice;
+            String choice;
             do {
-                choice = menu.MenuMain();
-            } while (choice < 1 || choice > 10);
+                choice = menu.menuMain();
+            } while (!choice.equals("1") &&
+                    !choice.equals("2") &&
+                    !choice.equals("3") &&
+                    !choice.equals("4") &&
+                    !choice.equals("5") &&
+                    !choice.equals("6") &&
+                    !choice.equals("7") &&
+                    !choice.equals("8") &&
+                    !choice.equals("9") &&
+                    !choice.equals("q") &&
+                    !choice.equals("Q"));
 
-            switch (choice) {
-                case 1 -> {
+            if(choice.equals("q") || choice.equals("Q"))
+                break;
+
+            int choice_ = choice.charAt(0);
+            switch (choice_) {
+                case 49 -> {
                     System.out.println("*******************************************************");
-                    Book.PrintBook();
+                    Book.printBook();
                     System.out.println("*******************************************************");
                 }
-                case 2 -> {
-                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                    System.out.println("Сумма затрат на зарплаты равна " + toMoneyFormat(Book.SalaryCost()));
-                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                case 50 -> {
+                    System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW +
+                            "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" +
+                            ConsoleColors.TEXT_RESET);
+                    System.out.println("Сумма затрат на зарплаты равна " + toMoneyFormat(Book.salaryCost()));
+                    System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW +
+                            "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" +
+                            ConsoleColors.TEXT_RESET);
                 }
-                case 3 -> {
-                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                case 51 -> {
+                    System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW +
+                            "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" +
+                            ConsoleColors.TEXT_RESET);
                     System.out.println("Работники с минимальной зарплатой");
-                    PrintEmployeesWithSalary(Book, Book.MinSalaryFind());
-                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                    printEmployeesWithSalary(Book, Book.minSalaryFind());
+                    System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW +
+                            "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" +
+                            ConsoleColors.TEXT_RESET);
                 }
-                case 4 -> {
-                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                case 52 -> {
+                    System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW +
+                            "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" +
+                            ConsoleColors.TEXT_RESET);
                     System.out.println("Работники с максимальной зарплатой");
-                    PrintEmployeesWithSalary(Book, Book.MaxSalaryFind());
-                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                    printEmployeesWithSalary(Book, Book.maxSalaryFind());
+                    System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW +
+                            "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" +
+                            ConsoleColors.TEXT_RESET);
                 }
-                case 5 -> {
-                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-                    System.out.println("Средняя зарплата равна " + toMoneyFormat(Book.AverageSalary()));
-                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                case 53 -> {
+                    System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW +
+                            "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" +
+                            ConsoleColors.TEXT_RESET);
+                    System.out.println("Средняя зарплата равна " + toMoneyFormat(Book.averageSalary()));
+                    System.out.println(ConsoleColors.TEXT_BRIGHT_YELLOW +
+                            "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" +
+                            ConsoleColors.TEXT_RESET);
                 }
-                case 6 -> {
+                case 54 -> {
                     System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    Employee emp = AddEmpl(Book);
-                    Book.AddEmployee(emp.GetFIO(), emp.GetSalary(), emp.GetDepartment(), emp.GetID());
+                    Employee emp = addEmpl(Book);
+                    Book.addEmployee(emp.getFIO(), emp.getSalary(), emp.getDepartment(), emp.getID());
                     System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 }
-                case 7 -> {
+                case 55 -> {
                     System.out.println("-------------------------------------------------------");
-                    DeleteEmployee(Book);
+                    deleteEmployee(Book);
                     System.out.println("-------------------------------------------------------");
                 }
-                case 8 -> ChangeEmployee(Book);
-                case 9 -> Book.PrintFIOByDepartment();
+                case 56 -> changeEmployee(Book);
+                case 57 -> Book.printFIOByDepartment();
             }
 
-            if(choice == 10)
-                break;
+
         } while(true);
     }
 
@@ -64,48 +96,48 @@ public class MainMenu {
         return formatter.format(cost);
     }
 
-    private void ChangeEmployee(EmployeeBook Book){
-        System.out.print("Введите ID работника:");
+    private void changeEmployee(EmployeeBook Book){
+        System.out.print("Введите ID работника: ");
         Scanner in = new Scanner(System.in);
-        int id = in.nextInt();
-        if(!Book.CheckID(id)) {
+        int id = parseInt(in.nextLine());
+        if(!Book.checkID(id)) {
             System.out.println("Работника с ID " + id + " нет.");
             return;
         }
         System.out.println("1. Изменить зарплату.");
         System.out.println("2. Изменить отдел.");
         System.out.println("Введите номер пункта: ");
-        int n = in.nextInt();
+        int n = parseInt(in.nextLine());
         if(n == 1){
             System.out.print("Введите новую зарплату работника: ");
             float salary = in.nextFloat();
-            Book.ChangeEmployeeSalaryByID(id, salary);
+            Book.changeEmployeeSalaryByID(id, salary);
         }else if(n == 2){
             System.out.print("Введите новый отдел работника: ");
             String dep = in.nextLine();
-            Book.ChangeEmployeeDepartmentByID(id, dep);
+            Book.changeEmployeeDepartmentByID(id, dep);
         }
     }
 
-    private void PrintEmployeesWithSalary(EmployeeBook Book, float salary){
+    private void printEmployeesWithSalary(EmployeeBook Book, float salary){
         for(int i = 1; i <= 10; i++){
-            if(Book.GetEmployeeByID(i).GetSalary() == salary){
-                Book.GetEmployeeByID(i).PrintEmployee();
+            if(Book.getEmployeeByID(i).getSalary() == salary){
+                Book.getEmployeeByID(i).printEmployee();
             }
         }
     }
 
-    private void DeleteEmployee(EmployeeBook Book){
+    private void deleteEmployee(EmployeeBook Book){
         System.out.println("Выберите вариант удаления:");
         System.out.println("1. Удаление по ID.");
         System.out.println("2. Удаление по ФИО.");
         Scanner in = new Scanner(System.in);
         System.out.print("Введите номер пункта меню: ");
-        int input = in.nextInt();
+        int input = parseInt(in.nextLine());
         if(input == 1){
             System.out.print("Введите ID: ");
-            input = in.nextInt();
-            if(Book.DeleteEmployeeByID(input)){
+            input = parseInt(in.nextLine());
+            if(Book.deleteEmployeeByID(input)){
                 System.out.println("Данные сотрудника с ID "+ input + " удалены.");
             }
         }else if(input == 2){
@@ -117,7 +149,7 @@ public class MainMenu {
                 System.out.println("Вы ввели пустую строку");
             }
             else {
-                if (Book.DeleteEmployeeByFIO(name)) {
+                if (Book.deleteEmployeeByFIO(name)) {
                     System.out.println("Данные сотрудника " + name + " удалены.");
                 }else{
                     System.out.println("Сотрудник с таким именем не найден.");
@@ -126,8 +158,8 @@ public class MainMenu {
         }
     }
 
-    private Employee AddEmpl(EmployeeBook Book) {
-        int id = Book.CheckVacancy();
+    private Employee addEmpl(EmployeeBook Book) {
+        int id = Book.checkVacancy();
         if (id > 0) {
             Employee e = new Employee(id);
             Scanner in = new Scanner(System.in);
@@ -137,10 +169,10 @@ public class MainMenu {
             String department = in.nextLine();
             System.out.print("Введите величину зарплаты: ");
             float salary;
-            salary = in.nextFloat();
-            e.SetFIO(name);
-            e.SetSalary(salary);
-            e.SetDepartment(department);
+            salary = (float)parseDouble(in.nextLine());
+            e.setFIO(name);
+            e.setSalary(salary);
+            e.setDepartment(department);
             return e;
         } else {
             System.out.println("Свободных вакансий нет.");

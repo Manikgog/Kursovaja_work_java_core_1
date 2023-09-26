@@ -4,17 +4,17 @@ public class Main {
 
         EmployeeBook Book = new EmployeeBook();
 
-        Book.AddEmployee("Chandler Bing", 25.3f, "statistic department", Book.CheckVacancy());
-        Book.AddEmployee("Joe Tribiany", 15.3f, "department of actors", Book.CheckVacancy());
-        Book.AddEmployee("Ross Geller", 26.3f, "paleonthologic department", Book.CheckVacancy());
-        Book.AddEmployee("Monica Bing", 24.2f, "nutrition department", Book.CheckVacancy());
-        Book.AddEmployee("Fuiby Buffee", 20.3f, "massage department", Book.CheckVacancy());
-        Book.AddEmployee("Rachel Grin", 23.3f, "fashion department", Book.CheckVacancy());
-        Book.AddEmployee("Ganter Tiler", 13.3f, "nutrition department", Book.CheckVacancy());
-        Book.AddEmployee("Ralf Loren", 13.3f, "fashion department", Book.CheckVacancy());
+        Book.addEmployee("Chandler Bing", 25.3f, "statistic department", Book.checkVacancy());
+        Book.addEmployee("Joe Tribiany", 15.3f, "department of actors", Book.checkVacancy());
+        Book.addEmployee("Ross Geller", 26.3f, "paleonthologic department", Book.checkVacancy());
+        Book.addEmployee("Monica Bing", 24.2f, "nutrition department", Book.checkVacancy());
+        Book.addEmployee("Fuiby Buffee", 20.3f, "massage department", Book.checkVacancy());
+        Book.addEmployee("Rachel Grin", 23.3f, "fashion department", Book.checkVacancy());
+        Book.addEmployee("Ganter Tiler", 13.3f, "nutrition department", Book.checkVacancy());
+        Book.addEmployee("Ralf Loren", 13.3f, "fashion department", Book.checkVacancy());
 
         MainMenu mainMenu = new MainMenu();
-        mainMenu.Menu(Book);
+        mainMenu.menu(Book);
         /*
         Book.PrintBook();
 

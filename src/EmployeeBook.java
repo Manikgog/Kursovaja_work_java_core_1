@@ -11,148 +11,148 @@ public class EmployeeBook {
         }
     }
 
-    public void PrintBook(){
+    public void printBook(){
         for(int i = 0; i < 10; i++){
-            if(book_[i].GetFIO().length() == 0)
+            if(book_[i].getFIO().length() == 0)
                 continue;
-            System.out.println("ID - " + book_[i].GetID());
-            System.out.println("FIO - " + book_[i].GetFIO());
-            System.out.println("Salary - " + MainMenu.toMoneyFormat(book_[i].GetSalary()));
-            System.out.println("Department - " + book_[i].GetDepartment());
+            System.out.println(ConsoleColors.TEXT_BRIGHT_BLUE + "ID - " + ConsoleColors.TEXT_BRIGHT_WHITE + book_[i].getID() + ConsoleColors.TEXT_RESET);
+            System.out.println(ConsoleColors.TEXT_BRIGHT_BLUE + "FIO - " + ConsoleColors.TEXT_BRIGHT_WHITE + book_[i].getFIO() + ConsoleColors.TEXT_RESET);
+            System.out.println(ConsoleColors.TEXT_BRIGHT_BLUE + "Salary - " + ConsoleColors.TEXT_BRIGHT_WHITE + MainMenu.toMoneyFormat(book_[i].getSalary()) + ConsoleColors.TEXT_RESET);
+            System.out.println(ConsoleColors.TEXT_BRIGHT_BLUE + "Department - " + ConsoleColors.TEXT_BRIGHT_WHITE + book_[i].getDepartment() + ConsoleColors.TEXT_RESET);
+            System.out.println();
         }
-        System.out.println();
     }
 
-    public int CheckVacancy(){
+    public int checkVacancy(){
         for(int i = 0; i < 10; i++){
-            if(book_[i].GetFIO().length() == 0){
-               return book_[i].GetID();
+            if(book_[i].getFIO().length() == 0){
+               return book_[i].getID();
             }
         }
         return -1;
     }
 
-    public boolean CheckID(int id){
+    public boolean checkID(int id){
         for(int i = 1; i <= 10; i++){
-            if(book_[i].GetID() == id){
+            if(book_[i].getID() == id){
                 return true;
             }
         }
         return false;
     }
 
-    public void AddEmployee(final String FIO, float salary, final String department, int id){
+    public void addEmployee(final String FIO, float salary, final String department, int id){
         if(id < 0) return;
-        if(book_[id - 1].GetFIO().length() == 0){
-            book_[id - 1].SetFIO(FIO);
-            book_[id - 1].SetSalary(salary);
-            book_[id - 1].SetDepartment(department);
+        if(book_[id - 1].getFIO().length() == 0){
+            book_[id - 1].setFIO(FIO);
+            book_[id - 1].setSalary(salary);
+            book_[id - 1].setDepartment(department);
         }
     }
 
-    public boolean DeleteEmployeeByFIO(final String FIO){
+    public boolean deleteEmployeeByFIO(final String FIO){
         for(int i = 0; i < 10; i++){
-            if(book_[i].GetFIO().equals(FIO)){
-                book_[i].SetFIO("");
-                book_[i].SetSalary(0.0f);
-                book_[i].SetDepartment("");
+            if(book_[i].getFIO().equals(FIO)){
+                book_[i].setFIO("");
+                book_[i].setSalary(0.0f);
+                book_[i].setDepartment("");
                 return true;
             }
         }
         return false;
     }
 
-    public boolean DeleteEmployeeByID(int id){
+    public boolean deleteEmployeeByID(int id){
         for(int i = 0; i < 10; i++){
-            if(book_[i].GetID() == id){
-                book_[i].SetFIO("");
-                book_[i].SetSalary(0.0f);
-                book_[i].SetDepartment("");
+            if(book_[i].getID() == id){
+                book_[i].setFIO("");
+                book_[i].setSalary(0.0f);
+                book_[i].setDepartment("");
                 return true;
             }
         }
         return false;
     }
 
-    public void ChangeEmployeeSalaryByID(int id, float salary){
+    public void changeEmployeeSalaryByID(int id, float salary){
         for(int i = 0; i < 10; i++){
-            if(book_[i].GetID() == id){
-                book_[i].SetSalary(salary);
+            if(book_[i].getID() == id){
+                book_[i].setSalary(salary);
             }
         }
     }
 
-    public void ChangeEmployeeDepartmentByID(int id, final String department){
+    public void changeEmployeeDepartmentByID(int id, final String department){
         for(int i = 0; i < 10; i++){
-            if(book_[i].GetID() == id){
-                book_[i].SetDepartment(department);
+            if(book_[i].getID() == id){
+                book_[i].setDepartment(department);
             }
         }
     }
 
-    public Employee GetEmployeeByID(int id){
+    public Employee getEmployeeByID(int id){
         for(int i = 0; i < 10; i++){
-            if(id == book_[i].GetID())
+            if(id == book_[i].getID())
                 return book_[i];
         }
         return new Employee(0);
     }
-    public float MinSalaryFind(){
-        float min = book_[0].GetSalary();
+    public float minSalaryFind(){
+        float min = book_[0].getSalary();
         for(int i = 1; i < 10; i++){
-            if(book_[i].GetFIO().length() == 0)
+            if(book_[i].getFIO().length() == 0)
                 continue;
-            if(book_[i].GetSalary() < min){
-                min = book_[i].GetSalary();
+            if(book_[i].getSalary() < min){
+                min = book_[i].getSalary();
             }
         }
         return min;
     }
 
-    public float MaxSalaryFind(){
-        float max = book_[0].GetSalary();
+    public float maxSalaryFind(){
+        float max = book_[0].getSalary();
         for(int i = 1; i < 10; i++){
-            if(book_[i].GetSalary() > max){
-                max = book_[i].GetSalary();
+            if(book_[i].getSalary() > max){
+                max = book_[i].getSalary();
             }
         }
         return max;
     }
 
-    public float SalaryCost(){
+    public float salaryCost(){
         float summ = 0.0f;
         for(int i = 0; i < 10; i++){
-            summ += book_[i].GetSalary();
+            summ += book_[i].getSalary();
         }
         return summ;
     }
 
-    public int CountNumberOfEmlpoyee(){
+    public int countNumberOfEmlpoyee(){
         int number = 0;
         for(int i = 0; i < 10; i++){
-            if(book_[i].GetFIO().length() == 0)
+            if(book_[i].getFIO().length() == 0)
                 continue;
             number++;
         }
         return number;
     }
 
-    public float AverageSalary(){
-        return SalaryCost() / CountNumberOfEmlpoyee();
+    public float averageSalary(){
+        return salaryCost() / countNumberOfEmlpoyee();
     }
 
-    public void PrintBookByFIO(){
+    public void printBookByFIO(){
         for(int i = 0; i < 10; i++){
-            if(book_[i].GetFIO().length() == 0)
+            if(book_[i].getFIO().length() == 0)
                 continue;
-            book_[i].PrintFIO();
+            book_[i].printFIO();
         }
     }
 
-    public void PrintFIOByDepartment(){
+    public void printFIOByDepartment(){
         String[] dep = new String[10];
         for(int i = 0; i < 10; i++){
-            dep[i] = book_[i].GetDepartment();
+            dep[i] = book_[i].getDepartment();
         }
         for(int i = 0; i < 9; i++){
             for(int j = i+1; j < 10; j++){
@@ -163,11 +163,11 @@ public class EmployeeBook {
         for(int i = 0; i < 10; i++){
             if(dep[i].length() == 0)
                 continue;
-            if(dep[i].equals(book_[i].GetDepartment())){
-                System.out.println(book_[i].GetDepartment() + ":");
+            if(dep[i].equals(book_[i].getDepartment())){
+                System.out.println(ConsoleColors.TEXT_GREEN + book_[i].getDepartment() + ":" + ConsoleColors.TEXT_RESET);
                 for(int j = 0; j < 10; j++){
-                    if(dep[i].equals(book_[j].GetDepartment())) {
-                        book_[j].PrintFIO();
+                    if(dep[i].equals(book_[j].getDepartment())) {
+                        book_[j].printFIO();
                     }
                 }
             }

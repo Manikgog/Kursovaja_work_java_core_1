@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public int MenuMain() {
+    public String menuMain() {
         System.out.println("Меню действий со списком сотрудников:");
         System.out.println("1. Получить список всех сотрудников.");
         System.out.println("2. Посчитать сумму затрат на зарплаты.");
@@ -13,12 +13,11 @@ public class Menu {
         System.out.println("7. Удалить сотрудника.");
         System.out.println("8. Изменить сотрудника.");
         System.out.println("9. Напечатать список отделов и ФИО их сотрудников.");
-        System.out.println("10. Выход из программы.");
+        System.out.println("Q/q. Выход из программы.");
 
         System.out.print("Введите номер пункта -> ");
         Scanner in = new Scanner(System.in);
-
-        return in.nextInt();
+        return in.nextLine();
     }
 
 
