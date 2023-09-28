@@ -1,29 +1,54 @@
+import java.util.Objects;
+
 public class Employee {
-    private String FIO;    // фамилия, имя, отчество
-    private int id;                // идентификатор
+    private String lastName;    // фамилия
+    private String name;        // имя
+    private String surName;
     private float salary;          // зарплата
     private String department;     // отдел
 
-    Employee(int id){
-        this.FIO = "";
-        this.id = id;
-        this.salary = 0.0f;
-        this.department = "";
+    Employee(String lastName, String name, String surName, float salary, String department){
+        this.lastName = lastName;
+        this.name = name;
+        this.surName = surName;
+        this.salary = salary;
+        this.department = department;
     }
 
-    public void printEmployee(){
-        System.out.println("ID - " + this.id);
-        System.out.println("FIO - " + this.FIO);
-        System.out.println("Salary - " + MainMenu.toMoneyFormat(this.salary));
-        System.out.println("Department - " + this.department + "\n");
+    @Override public String toString(){
+        return "ФИО - " + this.lastName + " " + this.name + " " + this.surName +
+                "\nЗарплата - " + MainMenu.toMoneyFormat(this.salary) +
+                "\nОтдел - " + this.department + "\n";
     }
 
-    public String getFIO(){
-        return this.FIO;
+    @Override public boolean equals(Object employee){
+        if(this == employee){
+            return true;
+        }
+        if (employee == null || this.getClass() != employee.getClass()) {
+            return false;
+        }
+        Employee e = (Employee) employee;
+        return this.department.equals(e.department) &&
+                this.lastName.equals(e.lastName) &&
+                this.name.equals(e.name) &&
+                this.surName.equals(e.surName) &&
+                this.salary == e.salary;
     }
 
-    public int getID(){
-        return this.id;
+    @Override public int hashCode() {
+        return Objects.hash(name, surName, lastName, salary, department);
+    }
+
+    public String getLastName(){
+        return this.lastName;
+    }
+    public String getName(){
+        return this.name;
+    }
+
+    public String getSurName(){
+        return this.surName;
     }
 
     public float getSalary(){
@@ -34,8 +59,15 @@ public class Employee {
         return this.department;
     }
 
-    public void setFIO(final String FIO){
-        this.FIO = FIO;
+    public void setLastName(final String lastName){
+        this.lastName = lastName;
+    }
+    public void setName(final String Name){
+        this.name = name;
+    }
+
+    public void setSurName(final String surName){
+        this.surName = surName;
     }
 
     public void setSalary(float salary){
@@ -46,7 +78,4 @@ public class Employee {
         this.department = department;
     }
 
-    public void printFIO(){
-        System.out.println(this.FIO);
-    }
 }
