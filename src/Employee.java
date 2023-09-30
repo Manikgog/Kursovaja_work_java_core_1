@@ -1,22 +1,27 @@
 import java.util.Objects;
 
 public class Employee {
-    private String lastName;    // фамилия
-    private String name;        // имя
-    private String surName;
-    private float salary;          // зарплата
-    private String department;     // отдел
+
+    private final int id;
+    private final String lastName;    // фамилия
+    private final String name;        // имя
+    private final String surName;     // отчество
+    private float salary;             // зарплата
+    private String department;        // отдел
 
     Employee(String lastName, String name, String surName, float salary, String department){
+        this.id = Main.countId;
         this.lastName = lastName;
         this.name = name;
         this.surName = surName;
         this.salary = salary;
         this.department = department;
+        Main.countId++;
     }
 
     @Override public String toString(){
-        return "ФИО - " + this.lastName + " " + this.name + " " + this.surName +
+        return "ID - " + this.id +
+                "\nФИО - " + this.lastName + " " + this.name + " " + this.surName +
                 "\nЗарплата - " + MainMenu.toMoneyFormat(this.salary) +
                 "\nОтдел - " + this.department + "\n";
     }
@@ -33,13 +38,17 @@ public class Employee {
                 this.lastName.equals(e.lastName) &&
                 this.name.equals(e.name) &&
                 this.surName.equals(e.surName) &&
-                this.salary == e.salary;
+                this.salary == e.salary &&
+                this.id == e.id;
     }
 
     @Override public int hashCode() {
-        return Objects.hash(name, surName, lastName, salary, department);
+        return Objects.hash(this.id, this.name, this.surName, this.lastName, this.salary, this.department);
     }
 
+    public int getId(){
+        return this.id;
+    }
     public String getLastName(){
         return this.lastName;
     }
@@ -57,17 +66,6 @@ public class Employee {
 
     public String getDepartment(){
         return this.department;
-    }
-
-    public void setLastName(final String lastName){
-        this.lastName = lastName;
-    }
-    public void setName(final String Name){
-        this.name = name;
-    }
-
-    public void setSurName(final String surName){
-        this.surName = surName;
     }
 
     public void setSalary(float salary){

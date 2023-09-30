@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class EmployeeBook {
 
     private final int capacity = 10;
-    private Employee[] book = new Employee[capacity];
+    private final Employee[] book = new Employee[capacity];
     private int size = 0;
     public EmployeeBook()
     {}
@@ -12,13 +12,13 @@ public class EmployeeBook {
         return this.size;
     }
 
-    int getCapacity(){
-        return this.capacity;
+    boolean checkVacancy(){
+        return this.size < this.capacity;
     }
 
     public void printBook(){
         for(int i = 0; i < this.size; i++){
-            System.out.println(ConsoleColors.TEXT_BRIGHT_BLUE + "ID - " + ConsoleColors.TEXT_BRIGHT_WHITE + i + ConsoleColors.TEXT_RESET);
+            System.out.println(ConsoleColors.TEXT_BRIGHT_BLUE + "ID - " + ConsoleColors.TEXT_BRIGHT_WHITE + this.book[i].getId() + ConsoleColors.TEXT_RESET);
             System.out.println(ConsoleColors.TEXT_BRIGHT_BLUE + "Фамилия - " + ConsoleColors.TEXT_BRIGHT_WHITE + this.book[i].getLastName() + ConsoleColors.TEXT_RESET);
             System.out.println(ConsoleColors.TEXT_BRIGHT_BLUE + "Имя - " + ConsoleColors.TEXT_BRIGHT_WHITE + this.book[i].getName() + ConsoleColors.TEXT_RESET);
             System.out.println(ConsoleColors.TEXT_BRIGHT_BLUE + "Отчество - " + ConsoleColors.TEXT_BRIGHT_WHITE + this.book[i].getSurName() + ConsoleColors.TEXT_RESET);
@@ -29,19 +29,18 @@ public class EmployeeBook {
     }
 
     public void addEmployee(final String lastName, final String name, final String surName, float salary, final String department){
-        if(size < capacity) {
+        if(size <= capacity) {
             this.size++;
             if (book[size - 1] == null) {
                 book[size - 1] = new Employee(lastName, name, surName, salary, department);
-                return;
             }
         }
-        return;
     }
 
     public boolean deleteEmployeeByFIO(final String lastName, final String name, final String surName){
         for(int i = 0; i < this.size; i++){
-            if(this.book[i].getLastName().equals(lastName) &&
+            if(this.book[i] != null &&
+                this.book[i].getLastName().equals(lastName) &&
                 this.book[i].getName().equals(name) &&
                 this.book[i].getSurName().equals(surName)){
                 System.arraycopy(book, i + 1, book, i, book.length - i - 1);
@@ -54,9 +53,9 @@ public class EmployeeBook {
     }
 
     public boolean deleteEmployeeByID(int id){
-        if(id >= 0 && id < this.size) {
-            if(this.book[id] != null){
-                System.arraycopy(book, id + 1, book, id, book.length - id - 1);
+        for (int i = 0; i < this.size; i++) {
+            if(this.book[i] != null && id == book[i].getId()){
+                System.arraycopy(book, i + 1, book, i, book.length - id - 1);
                 this.book[size - 1] = null;
                 this.size--;
                 return true;
@@ -66,29 +65,27 @@ public class EmployeeBook {
     }
 
     public void changeEmployeeSalaryByID(int id, float salary){
-        if(id >= 0 && id < this.size) {
-            if(this.book[id] != null){
-                book[id].setSalary(salary);
+        for (int i = 0; i < this.size; i++) {
+            if(this.book[i] != null && this.book[i].getId() == id){
+                book[i].setSalary(salary);
                 return;
             }
         }
-        return;
     }
 
     public void changeEmployeeDepartmentByID(int id, final String department){
-        if(id >= 0 && id < this.size) {
-            if(this.book[id] != null){
-                book[id].setDepartment(department);
+        for (int i = 0; i < this.size; i++) {
+            if(this.book[i] != null && this.book[i].getId() == id){
+                book[i].setDepartment(department);
                 return;
             }
         }
-        return;
     }
 
     public Employee getEmployeeByID(int id){
-        if(id >= 0 && id < this.size) {
-            if(this.book[id] != null){
-                return book[id];
+        for (int i = 0; i < this.size; i++) {
+            if(this.book[i] != null &&this.book[i].getId() == id){
+                return book[i];
             }
         }
         return null;
@@ -127,20 +124,11 @@ public class EmployeeBook {
         return summ;
     }
 
-    public int countNumberOfEmlpoyee(){
-        int number = 0;
-        for(int i = 0; i < this.size; i++){
-            number++;
-        }
-        return number;
-    }
-
     public float averageSalary(){
-        int countOfEmployees = countNumberOfEmlpoyee();
-        if(countOfEmployees == 0){
+        if(this.size == 0){
             return 0F;
         }
-        return salaryCost() / countOfEmployees;
+        return salaryCost() / this.size;
     }
 
     public void printBookByFIO(){
@@ -188,15 +176,6 @@ public class EmployeeBook {
         }
         return false;
     }
-
-    /*
-    @Override public String toString(){
-        String str = new String();
-        for(Employee emp : this.book){
-            str += emp.toString();
-        }
-        return str;
-    }*/
 
     @Override
     public String toString() {

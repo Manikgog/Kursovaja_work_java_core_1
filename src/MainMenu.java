@@ -80,7 +80,11 @@ public class MainMenu {
                     System.out.println("-------------------------------------------------------");
                 }
                 case 56 -> changeEmployee(Book);
-                case 57 -> Book.printFIOByDepartment();
+                case 57 -> {
+                    System.out.println("*******************************************************");
+                    Book.printFIOByDepartment();
+                    System.out.println("*******************************************************");
+                }
             }
 
 
@@ -121,6 +125,10 @@ public class MainMenu {
     }
 
     private void deleteEmployee(EmployeeBook Book){
+        if(Book.getSize() == 0) {
+            System.out.println("Список сотрудников пуст.");
+            return;
+        }
         System.out.println("Выберите вариант удаления:");
         System.out.println("1. Удаление по ID.");
         System.out.println("2. Удаление по ФИО.");
@@ -175,31 +183,29 @@ public class MainMenu {
     }
 
     private void addEmpl(EmployeeBook Book) {
-        if (Book.getSize() < Book.getCapacity()) {
-
-            String[] FIO = this.enterFIO();
-            if(Book.checkSameFIO(FIO)){
-                System.out.println("Такой работник уже есть.");
-                return;
-            }
-            System.out.print("Введите название отдела: ");
-            String department = this.enterDepartment();
-
-            System.out.print("Введите величину зарплаты: ");
-            float salary = enterSalary();
-            int len = FIO.length;
-            if(len == 3) {
-                Book.addEmployee(FIO[0], FIO[1], FIO[2], salary, department);
-            }
-            else if(len == 2){
-                Book.addEmployee(FIO[0], FIO[1], "", salary, department);
-            }else if(len == 1){
-                Book.addEmployee(FIO[0], "", "", salary, department);
-            }
+        if(!Book.checkVacancy()){
+            System.out.println("Все вакансии заполнены.");
             return;
         }
-        System.out.println("Свободных вакансий нет.");
-        return;
+        String[] FIO = this.enterFIO();
+        if(Book.checkSameFIO(FIO)){
+            System.out.println("Такой работник уже есть.");
+            return;
+        }
+        System.out.print("Введите название отдела: ");
+        String department = this.enterDepartment();
+
+        System.out.print("Введите величину зарплаты: ");
+        float salary = enterSalary();
+        int len = FIO.length;
+        if(len == 3) {
+            Book.addEmployee(FIO[0], FIO[1], FIO[2], salary, department);
+        }
+        else if(len == 2){
+            Book.addEmployee(FIO[0], FIO[1], "", salary, department);
+        }else if(len == 1){
+            Book.addEmployee(FIO[0], "", "", salary, department);
+        }
     }
 
     private String enterDepartment(){
